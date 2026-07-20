@@ -1,0 +1,10 @@
+# glow — Beauty, Nails & More
+# Allow every crawler to index the whole site.
+
+User-agent: *
+Allow: /
+
+# TODO: replace YOURDOMAIN.gr with the real Papaki domain once it is
+# live on Cloudflare Pages. Crawlers only read this file at a domain
+# root, so it has no effect on the github.io project URL.
+Sitemap: https://YOURDOMAIN.gr/sitemap.xml
