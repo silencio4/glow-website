@@ -719,37 +719,6 @@ a:hover { text-decoration-thickness: 2px; }
   display: block;
 }
 
-/* ═══════════ LEGAL PAGES ═══════════ */
-
-.legal__body { max-width: 68ch; }
-.legal__body h2 {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  margin-top: var(--space-5);
-  padding-bottom: var(--space-1);
-  border-bottom: 1px solid var(--sage-200);
-}
-.legal__body p { color: var(--ink-muted); }
-.legal__updated { font-size: .875rem; }
-
-.legal__list {
-  list-style: disc;
-  padding-left: 1.5rem;
-  margin: 0 0 var(--space-2);
-  color: var(--ink-muted);
-}
-.legal__list li { margin-bottom: var(--space-1); }
-
-/* Owner-facing reminder — delete the markup before publishing. */
-.legal__notice {
-  padding: var(--space-3);
-  margin-bottom: var(--space-4);
-  background: #FFF6D9;
-  border: 2px solid #8A6D1F;
-  border-radius: var(--radius-lg);
-}
-.legal__notice p { color: #4A3B10; margin: 0; font-size: .9375rem; }
-
 /* ═══════════ FOOTER ═══════════ */
 
 .site-footer {
