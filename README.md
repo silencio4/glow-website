@@ -99,6 +99,45 @@ contact section.
 
 ---
 
+## Putting it on GitHub
+
+The repository is already initialised and committed locally. To push it:
+
+**1. Create an empty repo on GitHub** — <https://github.com/new>
+Name it e.g. `glow-website`, set it **Public**, and do **not** tick
+"Add a README" (this project already has one).
+
+**2. Connect and push** (replace `YOUR-USERNAME`):
+
+```bash
+cd ~/Desktop/GlowBeatyNails
+git remote add origin https://github.com/YOUR-USERNAME/glow-website.git
+git push -u origin main
+```
+
+Git will prompt you to sign in to GitHub in your browser the first time.
+
+**3. Turn on GitHub Pages**
+Repo → **Settings** → **Pages** → Source: *Deploy from a branch* →
+Branch: `main`, folder: `/ (root)` → **Save**.
+
+After a minute the site is live at
+`https://YOUR-USERNAME.github.io/glow-website/` — that's the URL to paste into
+WAVE and AChecker.
+
+### Commit authorship
+
+The first commit was made as `giorgosid <giorgosid@hotmail.com>`, set for this
+repository only. To use a different name or email:
+
+```bash
+git config user.name "Your Name"
+git config user.email "your@email.com"
+git commit --amend --reset-author --no-edit
+```
+
+---
+
 ## Running it locally
 
 ```bash
@@ -108,10 +147,21 @@ npx http-server . -p 4173 -c-1
 Then open <http://localhost:4173>. Opening `index.html` directly as a file also
 works, though the map iframe may not load.
 
-## Deploying
+## Editing the site
 
-Drag the folder onto **Netlify Drop**, or push to GitHub and connect
-Vercel/Cloudflare Pages. No build command, no output directory.
+See **[EDITING.md](EDITING.md)** — written for non-developers. Covers changing
+text, swapping photos, adding services, changing colours safely, and undoing
+mistakes.
 
-You can exclude `MEDIA/` from the upload — everything the site needs is already
-in `assets/img/`.
+## Images
+
+`optimize-images.mjs` regenerates the web-sized images from the originals in
+`MEDIA/`. It always reads from the originals, so it's safe to re-run.
+
+```bash
+npm install sharp
+node optimize-images.mjs
+```
+
+Current weight: **656KB** of WebP across 11 images, down from 9.3MB of
+unoptimised JPEGs.
