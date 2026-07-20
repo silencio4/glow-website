@@ -721,37 +721,41 @@ a:hover { text-decoration-thickness: 2px; }
 
 /* ── Map ── */
 
-/* Placeholder shown until the visitor consents to loading Google's
-   iframe. Same footprint as the map so nothing shifts when swapped. */
-.map__consent {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-2);
-  height: clamp(300px, 42vw, 520px);
-  padding: var(--space-4) var(--space-3);
-  text-align: center;
-  background: var(--sage-050);
-  border: 1px solid var(--ink-muted);
-  border-radius: var(--radius-lg);
-}
-.map__consent svg { color: var(--sage-700); }
-.map__consent-text {
-  max-width: 46ch;
-  margin: 0;
-  font-size: .9375rem;
-  color: var(--ink-muted);
-}
-.map__consent-alt { margin: 0; font-size: .875rem; }
-
-.map iframe {
-  width: 100%;
-  height: clamp(300px, 42vw, 520px);
+/* Static map image + a directions link. The whole thing is one link;
+   the CTA sits over the bottom of the image. */
+.map__link {
+  position: relative;
+  display: block;
   border: 1px solid var(--ink-muted);   /* 8.2:1 — component boundary, WCAG 1.4.11 */
   border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.map__link img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 800 / 460;
+  object-fit: cover;
   display: block;
 }
+.map__cta {
+  position: absolute;
+  right: var(--space-2);
+  bottom: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: 44px;
+  padding: var(--space-1) var(--space-3);
+  background: var(--sage-700);          /* white on #445739 = 7.9:1 */
+  color: var(--white);
+  border-radius: var(--radius);
+  font-size: .875rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-2);
+}
+.map__link:hover .map__cta { background: var(--sage-900); }
+/* The link's focus ring should surround the whole card. */
+.map__link:focus-visible { outline-offset: 4px; }
 
 /* ═══════════ FOOTER ═══════════ */
 

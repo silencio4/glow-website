@@ -32,11 +32,19 @@
   "image": "assets/img/logo-glow-green.jpg",
   "telephone": "+302314020845",
   "address": {
-    "@type": "55132",
-    "streetAddress": "Κουντουριώτου 61, Καλαμαριά",
-    "addressLocality": "Θεσσαλονίκη",
+    "@type": "PostalAddress",
+    "streetAddress": "Κουντουριώτου 61",
+    "addressLocality": "Καλαμαριά",
+    "postalCode": "551 32",
+    "addressRegion": "Θεσσαλονίκη",
     "addressCountry": "GR"
   },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 40.5700767,
+    "longitude": 22.9589642
+  },
+  "hasMap": "https://www.google.com/maps/search/?api=1&query=40.5700767,22.9589642",
   "sameAs": ["https://www.instagram.com/glow_beautynailsandmore/"],
   "priceRange": "€€"
 }
@@ -446,8 +454,7 @@
                 Διεύθυνση
               </dt>
               <dd>
-                <!-- TODO: ΑΝΤΙΚΑΤΑΣΤΑΣΤΕ ΜΕ ΤΗΝ ΠΡΑΓΜΑΤΙΚΗ ΔΙΕΥΘΥΝΣΗ -->
-                <span class="todo">[Κουντουργιώτου &amp; 61]</span><br>Καλαμαριά, Θεσσαλονίκη
+                Κουντουριώτου 61<br>551 32 Καλαμαριά, Θεσσαλονίκη
               </dd>
             </div>
 
@@ -492,33 +499,29 @@
         </div>
 
         <!-- ─── Map ───────────────────────────────────────────────
-             GDPR: the Google Maps embed sets Google cookies and sends
-             the visitor's IP to Google. It is therefore NOT loaded
-             automatically. The iframe is only created after the
-             visitor explicitly clicks to load it (see main.js).
-             Until then nothing is requested from Google.
+             A static image rendered once from OpenStreetMap tiles
+             (see build-map.mjs) and served locally, so nothing is
+             requested from any map provider on page load — no
+             third-party request, no cookies. The link opens Google
+             Maps only when the visitor clicks it (their own action).
              ──────────────────────────────────────────────────────── -->
         <div class="map">
           <h3 class="contact__subhead">Πού θα μας βρείτε</h3>
 
-          <div class="map__consent" id="mapConsent">
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="32" height="32">
-              <path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/>
-              <circle cx="12" cy="10" r="2.6" fill="none" stroke="currentColor" stroke-width="1.5"/>
-            </svg>
-            <p class="map__consent-text">
-              Ο χάρτης παρέχεται από την Google. Αν τον φορτώσετε, η Google ενδέχεται
-              να λάβει τη διεύθυνση IP σας και να αποθηκεύσει cookies στη συσκευή σας.
-            </p>
-            <button type="button" class="btn btn--primary" id="mapLoad">
-              Φόρτωση χάρτη
-            </button>
-            <p class="map__consent-alt">
-              <!-- TODO: Αντικαταστήστε τη διεύθυνση στο τέλος του συνδέσμου. -->
-              ή <a href="https://www.google.com/maps/search/?api=1&amp;query=Thessaloniki%2C%20Greece"
-                   target="_blank" rel="noopener noreferrer">ανοίξτε τον χάρτη σε νέα καρτέλα<span class="visually-hidden"> (ανοίγει σε νέα καρτέλα στον ιστότοπο της Google)</span></a>
-            </p>
-          </div>
+          <a class="map__link"
+             href="https://www.google.com/maps/dir/?api=1&amp;destination=40.5700767%2C22.9589642"
+             target="_blank" rel="noopener noreferrer">
+            <picture>
+              <source srcset="assets/img/map-location.webp" type="image/webp">
+              <img src="assets/img/map-location.jpg"
+                   alt="Χάρτης που δείχνει τη θέση του glow στην οδό Κουντουριώτου 61, Καλαμαριά, Θεσσαλονίκη."
+                   width="800" height="460" loading="lazy" decoding="async">
+            </picture>
+            <span class="map__cta">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="18" height="18"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
+              Λήψη οδηγιών<span class="visually-hidden"> προς το glow — ανοίγει στους Χάρτες Google σε νέα καρτέλα</span>
+            </span>
+          </a>
         </div>
 
       </div>
