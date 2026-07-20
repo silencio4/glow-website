@@ -785,6 +785,220 @@ a:hover { text-decoration-thickness: 2px; }
 .colophon p { margin: 0; font-size: .8125rem; color: var(--sage-200); }
 
 /* ═══════════════════════════════════════════════════════════
+   ACCESSIBILITY WIDGET (ΕΣΠΑ)
+   A floating panel of native reading aids. The widget itself is
+   built to the same AA bar as the rest of the site: 44px targets,
+   visible focus, labelled controls, aria-pressed toggles.
+   ═══════════════════════════════════════════════════════════ */
+
+.a11y {
+  position: fixed;
+  left: max(var(--space-2), env(safe-area-inset-left));
+  bottom: max(var(--space-2), env(safe-area-inset-bottom));
+  z-index: 200;                      /* above sticky header (100) */
+}
+
+.a11y__toggle {
+  display: grid;
+  place-items: center;
+  width: 56px; height: 56px;
+  background: var(--sage-700);       /* white glyph on #445739 = 7.9:1 */
+  color: var(--white);
+  border: 2px solid var(--white);
+  border-radius: 50%;
+  box-shadow: var(--shadow-2);
+  cursor: pointer;
+  transition: background-color var(--dur) var(--ease-out),
+              transform 120ms var(--ease-out);
+}
+.a11y__toggle:hover { background: var(--sage-900); }
+.a11y__toggle:active { transform: scale(.95); }
+
+.a11y__panel {
+  position: absolute;
+  left: 0;
+  bottom: calc(56px + var(--space-2));
+  width: min(88vw, 320px);
+  max-height: min(70vh, 560px);
+  overflow-y: auto;
+  padding: var(--space-3);
+  background: var(--white);
+  border: 1px solid var(--ink-muted);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-2);
+}
+
+.a11y__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--sage-200);
+}
+.a11y__head h2 {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+.a11y__close {
+  display: grid;
+  place-items: center;
+  width: 44px; height: 44px;
+  margin: -8px -8px -8px 0;
+  background: none;
+  border: 0;
+  border-radius: var(--radius);
+  color: var(--ink);
+  cursor: pointer;
+}
+.a11y__close:hover { background: var(--sage-050); }
+
+.a11y__group { margin-bottom: var(--space-3); }
+.a11y__grouplabel {
+  display: block;
+  font-size: .8125rem;
+  font-weight: 600;
+  margin-bottom: var(--space-1);
+}
+.a11y__stepper {
+  display: grid;
+  grid-template-columns: 48px 1fr 48px;
+  align-items: center;
+  gap: var(--space-1);
+}
+.a11y__step {
+  min-height: 48px;
+  background: var(--white);
+  border: 1px solid var(--ink-muted);
+  border-radius: var(--radius);
+  font: inherit;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+}
+.a11y__step:hover { border-color: var(--sage-700); background: var(--sage-050); }
+.a11y__step[aria-disabled="true"] { opacity: .4; cursor: not-allowed; }
+.a11y__level {
+  text-align: center;
+  font-size: .875rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.a11y__opt {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: 48px;
+  padding: var(--space-1) var(--space-2);
+  margin-bottom: var(--space-1);
+  background: var(--white);
+  border: 1px solid var(--ink-muted);
+  border-radius: var(--radius);
+  font: inherit;
+  font-size: .9375rem;
+  text-align: left;
+  color: var(--ink);
+  cursor: pointer;
+  /* No transition: the pressed state must change instantly. Animating
+     background-color here (its value comes from a custom property that
+     also changes in high-contrast mode) could leave the toggle stuck
+     mid-transition, briefly showing white-on-white. */
+}
+.a11y__opt svg { color: var(--sage-700); flex-shrink: 0; }
+.a11y__opt:hover { border-color: var(--sage-700); background: var(--sage-050); }
+
+/* "On" state — signalled by colour AND a check, never colour alone. */
+.a11y__opt[aria-pressed="true"] {
+  background: var(--sage-700);
+  border-color: var(--sage-700);
+  color: var(--white);
+}
+.a11y__opt[aria-pressed="true"] svg { color: var(--white); }
+.a11y__opt[aria-pressed="true"]::after {
+  content: "";
+  width: 18px; height: 18px;
+  margin-left: auto;
+  flex-shrink: 0;
+  background: no-repeat center / contain
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12.5 4.5 4.5L19 7.5'/%3E%3C/svg%3E");
+}
+
+.a11y__reset {
+  width: 100%;
+  min-height: 48px;
+  margin-top: var(--space-2);
+  background: none;
+  border: 1px solid var(--ink-muted);
+  border-radius: var(--radius);
+  font: inherit;
+  font-size: .875rem;
+  font-weight: 500;
+  color: var(--ink);
+  cursor: pointer;
+}
+.a11y__reset:hover { background: var(--sage-050); border-color: var(--sage-700); }
+
+/* ── Preference states, applied to <html> ─────────────────────
+   High contrast is done by redefining the design tokens, so every
+   component that already uses them inherits the stronger values. */
+
+html.a11y-fs-1 { font-size: 106.25%; }   /* 17px */
+html.a11y-fs-2 { font-size: 112.5%;  }   /* 18px */
+html.a11y-fs-3 { font-size: 125%;    }   /* 20px */
+
+html.a11y-contrast {
+  --ink:       #000000;
+  --ink-muted: #1c1c1c;              /* darker secondary text */
+  --sage-700:  #24301c;              /* darker brand for text/buttons */
+  --sage-900:  #1a2213;
+  --sage-200:  #5a5a5a;              /* stronger borders (>3:1) */
+  --sage-100:  #ffffff;              /* drop the section tints */
+  --sage-050:  #ffffff;
+  --cream:     #ffffff;
+}
+html.a11y-contrast .service-card,
+html.a11y-contrast .pillars li { border-color: #000; }
+
+/* The footer's secondary text uses --sage-200, which contrast mode
+   repurposes as a darker border colour. On the near-black footer that
+   would fail, so force those texts to white here. */
+html.a11y-contrast .footer-brand__tagline,
+html.a11y-contrast .footer-heading,
+html.a11y-contrast .colophon p { color: #ffffff; }
+
+html.a11y-links a:not(.btn):not(.brand):not(.a11y__toggle) {
+  text-decoration: underline !important;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+  font-weight: 600;
+}
+
+html.a11y-readable body,
+html.a11y-readable :is(h1, h2, h3, h4, .display, .script-line, .eyebrow) {
+  font-family: Verdana, Tahoma, "Segoe UI", Arial, sans-serif !important;
+  font-style: normal !important;
+  letter-spacing: .02em;
+}
+html.a11y-readable body { line-height: 1.9; word-spacing: .08em; }
+
+/* Grayscale is applied to the content regions, not the widget, so the
+   panel keeps usable colour. A filter can't be undone by a descendant,
+   which is why it is scoped to siblings of the widget. */
+html.a11y-grayscale .site-header,
+html.a11y-grayscale main,
+html.a11y-grayscale .site-footer { filter: grayscale(100%); }
+
+html.a11y-bigcursor,
+html.a11y-bigcursor * {
+  cursor: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='48'%20height='48'%20viewBox='0%200%2048%2048'%3E%3Cpath%20d='M6%203L6%2039L16%2030L22%2044L28%2041L22%2027L35%2027Z'%20fill='%23000'%20stroke='%23fff'%20stroke-width='2.5'%20stroke-linejoin='round'/%3E%3C/svg%3E") 6 3, auto;
+}
+
+/* ═══════════════════════════════════════════════════════════
    REDUCED MOTION — WCAG 2.3.3
    Strip every non-essential animation and transition.
    ═══════════════════════════════════════════════════════════ */

@@ -170,4 +170,118 @@
     });
   }
 
+  /* ─────────────────────────────────────────────────────────
+     Accessibility widget (ΕΣΠΑ)
+
+     Native reading aids: text size, high contrast, link highlight,
+     readable font, grayscale, large cursor. Each preference is a
+     class on <html>; the CSS does the rest.
+
+     Preferences are saved to localStorage so a low-vision visitor
+     does not have to re-enable them on every page load. This is a
+     functional store of a setting the user actively chose — no
+     tracking, no personal data, no third party.
+     ───────────────────────────────────────────────────────── */
+
+  var a11y = document.getElementById('a11y');
+
+  if (a11y) {
+    var a11yToggle = document.getElementById('a11yToggle');
+    var a11yPanel = document.getElementById('a11yPanel');
+    var a11yClose = document.getElementById('a11yClose');
+    var a11yReset = document.getElementById('a11yReset');
+    var fsPlus = document.getElementById('fsPlus');
+    var fsMinus = document.getElementById('fsMinus');
+    var fsLevel = document.getElementById('fsLevel');
+    var STORE = 'glow_a11y';
+    var FS_NAMES = ['Κανονικό', 'Μεγάλο', 'Μεγαλύτερο', 'Μέγιστο'];
+    var TOGGLES = ['contrast', 'links', 'readable', 'grayscale', 'bigcursor'];
+
+    var state = { fs: 0, contrast: false, links: false, readable: false, grayscale: false, bigcursor: false };
+
+    // JS is running, so it is safe to show the control.
+    a11y.hidden = false;
+
+    function load() {
+      try {
+        var saved = JSON.parse(localStorage.getItem(STORE) || '{}');
+        Object.keys(state).forEach(function (k) {
+          if (typeof saved[k] === typeof state[k]) state[k] = saved[k];
+        });
+      } catch (e) { /* corrupt or unavailable — fall back to defaults */ }
+    }
+
+    function save() {
+      try { localStorage.setItem(STORE, JSON.stringify(state)); } catch (e) { /* private mode */ }
+    }
+
+    function apply() {
+      var root = document.documentElement;
+      root.classList.remove('a11y-fs-1', 'a11y-fs-2', 'a11y-fs-3');
+      if (state.fs > 0) root.classList.add('a11y-fs-' + state.fs);
+
+      TOGGLES.forEach(function (name) {
+        root.classList.toggle('a11y-' + name, state[name]);
+        var btn = a11y.querySelector('[data-a11y="' + name + '"]');
+        if (btn) btn.setAttribute('aria-pressed', String(state[name]));
+      });
+
+      fsLevel.textContent = FS_NAMES[state.fs];
+      fsMinus.setAttribute('aria-disabled', String(state.fs === 0));
+      fsPlus.setAttribute('aria-disabled', String(state.fs === 3));
+    }
+
+    function setPanel(open) {
+      a11yToggle.setAttribute('aria-expanded', String(open));
+      a11yPanel.hidden = !open;
+      if (open) a11yClose.focus();
+    }
+
+    a11yToggle.addEventListener('click', function () {
+      setPanel(a11yToggle.getAttribute('aria-expanded') !== 'true');
+    });
+    a11yClose.addEventListener('click', function () {
+      setPanel(false);
+      a11yToggle.focus();
+    });
+
+    // Escape closes; click outside closes. Non-modal, so no focus trap.
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && a11yToggle.getAttribute('aria-expanded') === 'true') {
+        setPanel(false);
+        a11yToggle.focus();
+      }
+    });
+    document.addEventListener('click', function (e) {
+      if (a11yToggle.getAttribute('aria-expanded') === 'true' && !a11y.contains(e.target)) {
+        setPanel(false);
+      }
+    });
+
+    TOGGLES.forEach(function (name) {
+      var btn = a11y.querySelector('[data-a11y="' + name + '"]');
+      btn.addEventListener('click', function () {
+        state[name] = !state[name];
+        apply(); save();
+      });
+    });
+
+    fsPlus.addEventListener('click', function () {
+      if (state.fs < 3) { state.fs++; apply(); save(); }
+    });
+    fsMinus.addEventListener('click', function () {
+      if (state.fs > 0) { state.fs--; apply(); save(); }
+    });
+
+    a11yReset.addEventListener('click', function () {
+      state = { fs: 0, contrast: false, links: false, readable: false, grayscale: false, bigcursor: false };
+      apply();
+      try { localStorage.removeItem(STORE); } catch (e) { /* ignore */ }
+      a11yReset.focus();
+    });
+
+    load();
+    apply();
+  }
+
 })();
