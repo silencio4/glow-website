@@ -240,11 +240,11 @@ See what you changed recently:
 git log --oneline
 ```
 
-Go back to how one file looked at an earlier commit (use the code from
-`git log`):
+Go back to how one file looked at an earlier commit. Take the short code from
+the left column of `git log --oneline` and use it in place of `abc1234`:
 
 ```bash
-git checkout 4da9017 -- index.html
+git checkout abc1234 -- index.html
 ```
 
 This is the real benefit of having the site in git — **you cannot permanently

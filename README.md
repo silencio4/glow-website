@@ -104,37 +104,51 @@ contact section.
 The repository is already initialised and committed locally. To push it:
 
 **1. Create an empty repo on GitHub** — <https://github.com/new>
-Name it e.g. `glow-website`, set it **Public**, and do **not** tick
-"Add a README" (this project already has one).
 
-**2. Connect and push** (replace `YOUR-USERNAME`):
+- Owner: **silencio4**
+- Repository name: **glow-website**
+- Visibility: **Public**
+- Do **not** tick "Add a README" — this project already has one
+
+**2. Connect and push**
 
 ```bash
 cd ~/Desktop/GlowBeatyNails
-git remote add origin https://github.com/YOUR-USERNAME/glow-website.git
+git remote add origin https://github.com/silencio4/glow-website.git
 git push -u origin main
 ```
 
-Git will prompt you to sign in to GitHub in your browser the first time.
+A browser window opens the first time asking you to authorise GitHub. Click
+through it — Windows stores the credential and won't ask again. You do not
+need a Personal Access Token.
 
 **3. Turn on GitHub Pages**
+
 Repo → **Settings** → **Pages** → Source: *Deploy from a branch* →
 Branch: `main`, folder: `/ (root)` → **Save**.
 
-After a minute the site is live at
-`https://YOUR-USERNAME.github.io/glow-website/` — that's the URL to paste into
-WAVE and AChecker.
+After a minute the site is live at:
+
+> **https://silencio4.github.io/glow-website/**
+
+That is the URL to paste into WAVE and AChecker.
 
 ### Commit authorship
 
-The first commit was made as `giorgosid <giorgosid@hotmail.com>`, set for this
-repository only. To use a different name or email:
+Commits are authored as `silencio4 <giorgosid20@gmail.com>`, configured for
+this repository only.
+
+⚠️ **In a public repo this email is permanently visible** through GitHub's API,
+and spam bots scrape it. To switch to GitHub's private noreply address instead
+— find yours under GitHub → Settings → Emails:
 
 ```bash
-git config user.name "Your Name"
-git config user.email "your@email.com"
-git commit --amend --reset-author --no-edit
+git config user.email "ID+silencio4@users.noreply.github.com"
+git rebase --root --exec 'git commit --amend --no-edit --reset-author'
 ```
+
+Do this **before** the first push. Afterwards the old address stays in the
+public history.
 
 ---
 
