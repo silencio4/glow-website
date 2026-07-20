@@ -46,87 +46,6 @@
 <body>
 <a class="skip-link" href="#main">Μετάβαση στο κύριο περιεχόμενο</a>
 
-<!-- ══════════ ACCESSIBILITY WIDGET (ΕΣΠΑ) ══════════
-     Native reading aids. Kept `hidden` so no dead control appears if
-     JavaScript is off — main.js reveals it. Placed early in the DOM so
-     keyboard users reach it right after the skip link. -->
-<div class="a11y" id="a11y" hidden>
-  <button type="button" class="a11y__toggle" id="a11yToggle"
-          aria-expanded="false" aria-controls="a11yPanel">
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="26" height="26">
-      <circle cx="12" cy="4.2" r="1.8" fill="currentColor"/>
-      <path fill="currentColor" d="M12 6.7c-2.2 0-4.4-.4-6.4-1.1a1 1 0 0 0-.68 1.88c1.4.5 2.9.86 4.42 1.05l-.52 3.9-1.6 5.4a1.05 1.05 0 0 0 2.01.6L11 14.1c.24-.79.36-1.19.5-1.19s.26.4.5 1.19l1.29 4.33a1.05 1.05 0 0 0 2.01-.6l-1.6-5.4-.52-3.9c1.52-.19 3.02-.55 4.42-1.05a1 1 0 0 0-.68-1.88c-2 .7-4.2 1.1-6.4 1.1Z"/>
-    </svg>
-    <span class="visually-hidden">Επιλογές προσβασιμότητας</span>
-  </button>
-
-  <div class="a11y__panel" id="a11yPanel" role="dialog" aria-modal="false"
-       aria-labelledby="a11yHeading" hidden>
-    <div class="a11y__head">
-      <h2 id="a11yHeading">Προσβασιμότητα</h2>
-      <button type="button" class="a11y__close" id="a11yClose">
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="22" height="22"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="m6 6 12 12M18 6 6 18"/></svg>
-        <span class="visually-hidden">Κλείσιμο επιλογών προσβασιμότητας</span>
-      </button>
-    </div>
-
-    <div class="a11y__group">
-      <span class="a11y__grouplabel" id="fsLabel">Μέγεθος κειμένου</span>
-      <div class="a11y__stepper" role="group" aria-labelledby="fsLabel">
-        <button type="button" class="a11y__step" id="fsMinus" aria-label="Μείωση μεγέθους κειμένου">
-          <span aria-hidden="true">A−</span>
-        </button>
-        <span class="a11y__level" id="fsLevel" aria-live="polite">Κανονικό</span>
-        <button type="button" class="a11y__step" id="fsPlus" aria-label="Αύξηση μεγέθους κειμένου">
-          <span aria-hidden="true">A+</span>
-        </button>
-      </div>
-    </div>
-
-    <button type="button" class="a11y__opt" data-a11y="contrast" aria-pressed="false">
-      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="22" height="22"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path fill="currentColor" d="M12 3a9 9 0 0 1 0 18Z"/></svg>
-      <span>Υψηλή αντίθεση</span>
-    </button>
-
-    <button type="button" class="a11y__opt" data-a11y="links" aria-pressed="false">
-      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="22" height="22"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M9 15a3 3 0 0 1 0-4l2-2a3 3 0 0 1 4 4M15 9a3 3 0 0 1 0 4l-2 2a3 3 0 0 1-4-4"/></svg>
-      <span>Ανάδειξη συνδέσμων</span>
-    </button>
-
-    <button type="button" class="a11y__opt" data-a11y="readable" aria-pressed="false">
-      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="22" height="22"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M4 7V5h16v2M9 5v14M7 19h4"/></svg>
-      <span>Ευανάγνωστη γραμματοσειρά</span>
-    </button>
-
-    <button type="button" class="a11y__opt" data-a11y="grayscale" aria-pressed="false">
-      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="22" height="22"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path fill="currentColor" d="M12 3a9 9 0 0 0 0 18Z" opacity=".45"/></svg>
-      <span>Κλίμακα του γκρι</span>
-    </button>
-
-    <button type="button" class="a11y__opt" data-a11y="bigcursor" aria-pressed="false">
-      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="22" height="22"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M5 3v14l3.5-3.5L11 20l2.5-1-2.5-6H16Z"/></svg>
-      <span>Μεγάλος δείκτης</span>
-    </button>
-
-    <button type="button" class="a11y__opt" data-a11y="spacing" aria-pressed="false">
-      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="22" height="22"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M4 8h16M4 16h16M7 5 4 8l3 3M17 5l3 3-3 3"/></svg>
-      <span>Αποστάσεις κειμένου</span>
-    </button>
-
-    <button type="button" class="a11y__opt" data-a11y="guide" aria-pressed="false">
-      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="22" height="22"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M3 12h18M6 9v6M18 9v6"/></svg>
-      <span>Οδηγός ανάγνωσης</span>
-    </button>
-
-    <button type="button" class="a11y__opt" data-a11y="nomotion" aria-pressed="false">
-      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="22" height="22"><rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"/><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"/></svg>
-      <span>Παύση κινήσεων</span>
-    </button>
-
-    <button type="button" class="a11y__reset" id="a11yReset">Επαναφορά ρυθμίσεων</button>
-  </div>
-</div>
-
 <!-- ══════════ HEADER ══════════ -->
 <header class="site-header" id="siteHeader">
   <div class="wrap header-inner">
@@ -167,15 +86,84 @@
           <span class="visually-hidden">Το glow στο Instagram (ανοίγει σε νέα καρτέλα)</span>
         </a>
       </li>
-      <li>
-        <a href="tel:+302314020845">
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="22" height="22">
-            <path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.3 2.2Z"/>
-          </svg>
-          <span class="visually-hidden">Τηλεφωνήστε μας στο 2314 020 845</span>
-        </a>
-      </li>
     </ul>
+
+    <div class="a11y" id="a11y" hidden>
+      <button type="button" class="a11y__toggle" id="a11yToggle"
+              aria-expanded="false" aria-controls="a11yPanel">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="26" height="26">
+          <circle cx="12" cy="4.2" r="1.8" fill="currentColor"/>
+          <path fill="currentColor" d="M12 6.7c-2.2 0-4.4-.4-6.4-1.1a1 1 0 0 0-.68 1.88c1.4.5 2.9.86 4.42 1.05l-.52 3.9-1.6 5.4a1.05 1.05 0 0 0 2.01.6L11 14.1c.24-.79.36-1.19.5-1.19s.26.4.5 1.19l1.29 4.33a1.05 1.05 0 0 0 2.01-.6l-1.6-5.4-.52-3.9c1.52-.19 3.02-.55 4.42-1.05a1 1 0 0 0-.68-1.88c-2 .7-4.2 1.1-6.4 1.1Z"/>
+        </svg>
+        <span class="visually-hidden">Επιλογές προσβασιμότητας</span>
+      </button>
+    
+      <div class="a11y__panel" id="a11yPanel" role="dialog" aria-modal="false"
+           aria-labelledby="a11yHeading" hidden>
+        <div class="a11y__head">
+          <h2 id="a11yHeading">Προσβασιμότητα</h2>
+          <button type="button" class="a11y__close" id="a11yClose">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="22" height="22"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="m6 6 12 12M18 6 6 18"/></svg>
+            <span class="visually-hidden">Κλείσιμο επιλογών προσβασιμότητας</span>
+          </button>
+        </div>
+    
+        <div class="a11y__group">
+          <span class="a11y__grouplabel" id="fsLabel">Μέγεθος κειμένου</span>
+          <div class="a11y__stepper" role="group" aria-labelledby="fsLabel">
+            <button type="button" class="a11y__step" id="fsMinus" aria-label="Μείωση μεγέθους κειμένου">
+              <span aria-hidden="true">A−</span>
+            </button>
+            <span class="a11y__level" id="fsLevel" aria-live="polite">Κανονικό</span>
+            <button type="button" class="a11y__step" id="fsPlus" aria-label="Αύξηση μεγέθους κειμένου">
+              <span aria-hidden="true">A+</span>
+            </button>
+          </div>
+        </div>
+    
+        <button type="button" class="a11y__opt" data-a11y="contrast" aria-pressed="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="22" height="22"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path fill="currentColor" d="M12 3a9 9 0 0 1 0 18Z"/></svg>
+          <span>Υψηλή αντίθεση</span>
+        </button>
+    
+        <button type="button" class="a11y__opt" data-a11y="links" aria-pressed="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="22" height="22"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M9 15a3 3 0 0 1 0-4l2-2a3 3 0 0 1 4 4M15 9a3 3 0 0 1 0 4l-2 2a3 3 0 0 1-4-4"/></svg>
+          <span>Ανάδειξη συνδέσμων</span>
+        </button>
+    
+        <button type="button" class="a11y__opt" data-a11y="readable" aria-pressed="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="22" height="22"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M4 7V5h16v2M9 5v14M7 19h4"/></svg>
+          <span>Ευανάγνωστη γραμματοσειρά</span>
+        </button>
+    
+        <button type="button" class="a11y__opt" data-a11y="grayscale" aria-pressed="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="22" height="22"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path fill="currentColor" d="M12 3a9 9 0 0 0 0 18Z" opacity=".45"/></svg>
+          <span>Κλίμακα του γκρι</span>
+        </button>
+    
+        <button type="button" class="a11y__opt" data-a11y="bigcursor" aria-pressed="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="22" height="22"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M5 3v14l3.5-3.5L11 20l2.5-1-2.5-6H16Z"/></svg>
+          <span>Μεγάλος δείκτης</span>
+        </button>
+    
+        <button type="button" class="a11y__opt" data-a11y="spacing" aria-pressed="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="22" height="22"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M4 8h16M4 16h16M7 5 4 8l3 3M17 5l3 3-3 3"/></svg>
+          <span>Αποστάσεις κειμένου</span>
+        </button>
+    
+        <button type="button" class="a11y__opt" data-a11y="guide" aria-pressed="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="22" height="22"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M3 12h18M6 9v6M18 9v6"/></svg>
+          <span>Οδηγός ανάγνωσης</span>
+        </button>
+    
+        <button type="button" class="a11y__opt" data-a11y="nomotion" aria-pressed="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="22" height="22"><rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"/><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"/></svg>
+          <span>Παύση κινήσεων</span>
+        </button>
+    
+        <button type="button" class="a11y__reset" id="a11yReset">Επαναφορά ρυθμίσεων</button>
+      </div>
+    </div>
 
   </div>
 </header>

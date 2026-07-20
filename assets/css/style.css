@@ -382,6 +382,25 @@ a:hover { text-decoration-thickness: 2px; }
   .nav-toggle { display: inline-flex; }
   .social--header { display: none; }
 
+  /* Keep the hamburger as the right-most control; the accessibility
+     icon sits just to its left. (The a11y widget stays visible.) */
+  .a11y { order: 1; }
+  .nav-toggle { order: 2; }
+  .a11y__toggle:hover { background: var(--sage-100); }
+
+  /* The toggle sits mid-header on mobile, so a toggle-anchored panel
+     would spill off the left edge. Pin it to the viewport instead.
+     Extra specificity (.a11y >) so this wins over the base rule, which
+     is defined later in the file. */
+  .a11y > .a11y__panel {
+    position: fixed;
+    top: var(--header-h);
+    right: var(--space-2);
+    left: auto;
+    width: min(92vw, 340px);
+    max-height: calc(100dvh - var(--header-h) - var(--space-3));
+  }
+
   .primary-nav {
     position: absolute;
     top: 100%;
@@ -791,41 +810,44 @@ a:hover { text-decoration-thickness: 2px; }
    visible focus, labelled controls, aria-pressed toggles.
    ═══════════════════════════════════════════════════════════ */
 
+/* Sits in the header where the phone icon used to be. Relative so the
+   panel can drop down anchored to it. Always visible — unlike the
+   social icons it is NOT hidden on mobile, since the reading aids must
+   stay reachable on small screens. */
 .a11y {
-  position: fixed;
-  left: max(var(--space-2), env(safe-area-inset-left));
-  bottom: max(var(--space-2), env(safe-area-inset-bottom));
-  z-index: 200;                      /* above sticky header (100) */
+  position: relative;
 }
 
+/* Matches the other header icons (Instagram): 44px target, sage glyph,
+   no filled FAB look. */
 .a11y__toggle {
   display: grid;
   place-items: center;
-  width: 56px; height: 56px;
-  background: var(--sage-700);       /* white glyph on #445739 = 7.9:1 */
-  color: var(--white);
-  border: 2px solid var(--white);
-  border-radius: 50%;
-  box-shadow: var(--shadow-2);
+  width: 44px; height: 44px;
+  background: none;
+  color: var(--sage-700);
+  border: 0;
+  border-radius: var(--radius);
   cursor: pointer;
-  transition: background-color var(--dur) var(--ease-out),
-              transform 120ms var(--ease-out);
+  transition: background-color var(--dur) var(--ease-out);
 }
-.a11y__toggle:hover { background: var(--sage-900); }
-.a11y__toggle:active { transform: scale(.95); }
+.a11y__toggle:hover { background: var(--sage-050); }
 
+/* Drops down from the toggle, right-aligned so it never overflows the
+   viewport edge. */
 .a11y__panel {
   position: absolute;
-  left: 0;
-  bottom: calc(56px + var(--space-2));
+  top: calc(100% + var(--space-1));
+  right: 0;
   width: min(88vw, 320px);
-  max-height: min(70vh, 560px);
+  max-height: min(72vh, 560px);
   overflow-y: auto;
   padding: var(--space-3);
   background: var(--white);
   border: 1px solid var(--ink-muted);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-2);
+  z-index: 210;                      /* above the sticky header */
 }
 
 .a11y__head {
