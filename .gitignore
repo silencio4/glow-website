@@ -1,0 +1,21 @@
+# Local Claude Code tooling — not part of the website
+.claude/
+
+# Dependencies (only ever installed temporarily, for audits)
+node_modules/
+package-lock.json
+package.json
+
+# OS noise
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Local tooling output
+*.log
+axe-temp.js
