@@ -101,54 +101,79 @@ contact section.
 
 ## Putting it on GitHub
 
-The repository is already initialised and committed locally. To push it:
+| | |
+|---|---|
+| GitHub account | **silencio4** |
+| Repository | **glow-website** (public) |
+| Remote | `git@github.com:silencio4/glow-website.git` (SSH) |
+| Commit author | `silencio4 <giorgosid20@gmail.com>` |
+| Live URL once Pages is on | https://silencio4.github.io/glow-website/ |
 
-**1. Create an empty repo on GitHub** — <https://github.com/new>
+### Already done
 
-- Owner: **silencio4**
-- Repository name: **glow-website**
-- Visibility: **Public**
-- Do **not** tick "Add a README" — this project already has one
+- Repository created on GitHub
+- Local repo initialised, 3 commits, working tree clean
+- Remote `origin` added and pointed at the **SSH** URL
+- SSH key generated at `~/.ssh/id_ed25519`
 
-**2. Connect and push**
+### Remaining steps
+
+**1. Register the SSH key** — <https://github.com/settings/ssh/new>
+
+Paste the contents of `~/.ssh/id_ed25519.pub`. Print it with:
+
+```bash
+cat ~/.ssh/id_ed25519.pub
+```
+
+That is the *public* half and is safe to share. The private half stays on this
+machine and must never be shared.
+
+**2. Push**
 
 ```bash
 cd ~/Desktop/GlowBeatyNails
-git remote add origin https://github.com/silencio4/glow-website.git
 git push -u origin main
 ```
-
-A browser window opens the first time asking you to authorise GitHub. Click
-through it — Windows stores the credential and won't ask again. You do not
-need a Personal Access Token.
 
 **3. Turn on GitHub Pages**
 
 Repo → **Settings** → **Pages** → Source: *Deploy from a branch* →
 Branch: `main`, folder: `/ (root)` → **Save**.
 
-After a minute the site is live at:
+### Why SSH and not HTTPS
 
-> **https://silencio4.github.io/glow-website/**
+The first attempt used HTTPS, which signs in through GitHub's **REST API**.
+That API was in a partial outage and returned `503`, so Git Credential Manager
+fell back to sending empty credentials and reported the misleading error
+`Invalid username or token`.
 
-That is the URL to paste into WAVE and AChecker.
+SSH authenticates over port 22 and never touches that API, so it works even
+while the API is degraded.
 
-### Commit authorship
-
-Commits are authored as `silencio4 <giorgosid20@gmail.com>`, configured for
-this repository only.
-
-⚠️ **In a public repo this email is permanently visible** through GitHub's API,
-and spam bots scrape it. To switch to GitHub's private noreply address instead
-— find yours under GitHub → Settings → Emails:
+To move back to HTTPS later:
 
 ```bash
-git config user.email "ID+silencio4@users.noreply.github.com"
+git remote set-url origin https://github.com/silencio4/glow-website.git
+```
+
+### ⚠️ The commit email is public
+
+Commits are authored as `giorgosid20@gmail.com`. **In a public repository this
+address is permanently visible** through GitHub's API, and spam bots harvest
+it.
+
+To use GitHub's private noreply address instead — find yours under
+GitHub → Settings → Emails, it looks like `12345678+silencio4@users.noreply.github.com`:
+
+```bash
+git config user.email "12345678+silencio4@users.noreply.github.com"
 git rebase --root --exec 'git commit --amend --no-edit --reset-author'
 ```
 
-Do this **before** the first push. Afterwards the old address stays in the
-public history.
+Commits still link to your profile and still count toward your contribution
+graph. **Do this before the first push** — afterwards the old address stays in
+the public history permanently.
 
 ---
 

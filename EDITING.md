@@ -224,7 +224,12 @@ git commit -m "Update opening hours"
 git push
 ```
 
-If GitHub Pages is switched on, your live site updates in about a minute.
+If GitHub Pages is switched on, your live site at
+<https://silencio4.github.io/glow-website/> updates in about a minute.
+
+> **First time only:** the push needs your SSH key registered at
+> <https://github.com/settings/ssh/new>. See README.md for the details. Once
+> it's added, every future `git push` just works.
 
 ## Undo a mistake
 
