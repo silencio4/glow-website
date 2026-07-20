@@ -512,65 +512,75 @@ a:hover { text-decoration-thickness: 2px; }
 
 /* ═══════════ SERVICES ═══════════ */
 
-/* Four services sit as a balanced 2×2. A narrower max-width keeps the
-   cards from sprawling on wide screens; the grid stays centred.
-   (If the list grows back to 5–6, two columns still reads cleanly.) */
-.service-grid {
-  display: grid;
-  gap: var(--space-3);
-  max-width: 900px;
+/* A centred single column reading like a treatment menu. Each category
+   is a group of native <details> accordions. */
+.treatments-wrap {
+  max-width: 780px;
   margin-inline: auto;
 }
-@media (min-width: 640px) { .service-grid { grid-template-columns: repeat(2, 1fr); } }
 
-.service-card {
-  display: flex;
-  flex-direction: column;
-  padding: var(--space-3) min(var(--space-4), 32px);
+.service-cat { margin-bottom: var(--space-5); }
+.service-cat:last-child { margin-bottom: 0; }
+
+.service-cat__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  font-weight: 500;
+  margin-bottom: var(--space-2);
+  padding-bottom: var(--space-1);
+  border-bottom: 2px solid var(--sage-500);
+}
+
+/* Native disclosure — keyboard-operable and screen-reader friendly by
+   default, works with no JS. */
+.treatment {
   background: var(--white);
   border: 1px solid var(--sage-200);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-1);
+  border-radius: var(--radius);
+  margin-bottom: var(--space-1);
 }
 
-.service-card__title {
-  font-family: var(--font-display);
-  font-size: 1.625rem;
+.treatment summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 56px;                  /* comfortable touch target */
+  padding: var(--space-1) var(--space-3);
   font-weight: 500;
-  padding-bottom: var(--space-2);
-  border-bottom: 1px solid var(--sage-200);
+  color: var(--ink);
+  cursor: pointer;
+  list-style: none;                  /* remove the default triangle… */
 }
-.service-card__desc {
+.treatment summary::-webkit-details-marker { display: none; }  /* …incl. Safari */
+
+.treatment__name { flex: 1; min-width: 0; }
+.treatment__sub {
+  display: inline-block;
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--sage-700);
+  margin-left: .35em;
+}
+
+.treatment__chev {
+  flex-shrink: 0;
+  color: var(--sage-700);
+  transition: transform var(--dur) var(--ease-out);
+}
+.treatment[open] .treatment__chev { transform: rotate(180deg); }
+
+.treatment summary:hover { background: var(--sage-050); }
+.treatment[open] summary { border-bottom: 1px solid var(--sage-200); }
+
+.treatment__body {
+  padding: var(--space-2) var(--space-3) var(--space-3);
+}
+.treatment__body p {
+  margin: 0;
   font-size: .9375rem;
   color: var(--ink-muted);
-  margin-bottom: var(--space-3);
-}
-
-/* Treatments offered in each category. The list follows its
-   description directly (no forced bottom-alignment), so short cards
-   don't show a floating gap. Text wraps rather than clipping when the
-   user overrides text spacing (WCAG 1.4.12). */
-.service-list {
-  display: grid;
-  gap: var(--space-1);
-  padding-top: var(--space-1);
-  border-top: 1px solid var(--sage-200);
-}
-.service-list li {
-  position: relative;
-  padding-left: 1.25rem;
-  font-size: .9375rem;
-  min-width: 0;
-}
-/* Decorative leaf-dot marker; the list semantics carry the meaning. */
-.service-list li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: .6em;
-  width: 6px; height: 6px;
-  border-radius: 50% 0 50% 50%;
-  background: var(--sage-700);
 }
 
 /* ═══════════ GALLERY ═══════════ */
@@ -983,8 +993,9 @@ html.a11y-contrast {
   --sage-050:  #ffffff;
   --cream:     #ffffff;
 }
-html.a11y-contrast .service-card,
+html.a11y-contrast .treatment,
 html.a11y-contrast .pillars li { border-color: #000; }
+html.a11y-contrast .service-cat__title { border-bottom-color: #000; }
 
 /* The footer's secondary text uses --sage-200, which contrast mode
    repurposes as a darker border colour. On the near-black footer that
@@ -1076,11 +1087,10 @@ html.a11y-nomotion *::after {
    ═══════════════════════════════════════════════════════════ */
 
 @media (forced-colors: active) {
-  .btn, .service-card, .pillars li, .gallery-item {
+  .btn, .treatment, .pillars li, .gallery-item {
     border: 1px solid CanvasText;
   }
   :focus-visible { outline: 3px solid Highlight; }
-  .service-list li::before { background: CanvasText; }
 }
 
 /* ═══════════════════════════════════════════════════════════
