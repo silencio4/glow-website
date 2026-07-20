@@ -493,12 +493,16 @@ a:hover { text-decoration-thickness: 2px; }
 
 /* ═══════════ SERVICES ═══════════ */
 
+/* Four services sit as a balanced 2×2. A narrower max-width keeps the
+   cards from sprawling on wide screens; the grid stays centred.
+   (If the list grows back to 5–6, two columns still reads cleanly.) */
 .service-grid {
   display: grid;
   gap: var(--space-3);
+  max-width: 900px;
+  margin-inline: auto;
 }
-@media (min-width: 640px)  { .service-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1024px) { .service-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 640px) { .service-grid { grid-template-columns: repeat(2, 1fr); } }
 
 .service-card {
   display: flex;
@@ -523,10 +527,11 @@ a:hover { text-decoration-thickness: 2px; }
   margin-bottom: var(--space-3);
 }
 
-/* Treatments offered in each category. Text wraps rather than
-   clipping when the user overrides text spacing (WCAG 1.4.12). */
+/* Treatments offered in each category. The list follows its
+   description directly (no forced bottom-alignment), so short cards
+   don't show a floating gap. Text wraps rather than clipping when the
+   user overrides text spacing (WCAG 1.4.12). */
 .service-list {
-  margin-top: auto;
   display: grid;
   gap: var(--space-1);
   padding-top: var(--space-1);
