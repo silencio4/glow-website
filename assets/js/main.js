@@ -93,6 +93,43 @@
   }
 
   /* ─────────────────────────────────────────────────────────
+     Consent-gated Google Map (GDPR)
+
+     The iframe does not exist in the HTML at all. It is only
+     created here, after the visitor clicks the button — so no
+     request reaches Google, and no cookie is set, unless they
+     actively ask for it.
+
+     The consent is deliberately NOT remembered: nothing is written
+     to localStorage or cookies, because storing it would itself
+     need a legal basis. The cost is one extra click per visit.
+
+     TODO: replace the address in MAP_QUERY with the real one.
+     ───────────────────────────────────────────────────────── */
+
+  var MAP_QUERY = 'Thessaloniki, Greece';
+
+  var mapConsent = document.getElementById('mapConsent');
+  var mapLoad = document.getElementById('mapLoad');
+
+  if (mapConsent && mapLoad) {
+    mapLoad.addEventListener('click', function () {
+      var frame = document.createElement('iframe');
+      frame.title = 'Χάρτης με τη θέση του glow — Beauty, Nails & More στη Θεσσαλονίκη';
+      frame.src = 'https://www.google.com/maps?q=' + encodeURIComponent(MAP_QUERY) + '&output=embed';
+      frame.loading = 'lazy';
+      frame.referrerPolicy = 'no-referrer-when-downgrade';
+
+      mapConsent.replaceWith(frame);
+
+      // Move focus to the map so keyboard and screen-reader users
+      // land on what they just asked for.
+      frame.setAttribute('tabindex', '0');
+      frame.focus();
+    });
+  }
+
+  /* ─────────────────────────────────────────────────────────
      Gallery lightbox
 
      Built on <dialog showModal()>, which gives us the focus trap,

@@ -25,8 +25,10 @@
   --focus:    #1C1E1A;   /* focus ring on light surfaces         */
   --focus-inv:#FAF9F6;   /* focus ring on dark surfaces          */
 
-  /* ── Typography ─────────────────────────────────────────── */
-  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  /* ── Typography ─────────────────────────────────────────────
+     Self-hosted — see fonts.css. Both cover Greek; Cormorant
+     Garamond did not, which is why EB Garamond is used here. */
+  --font-display: "EB Garamond", Georgia, "Times New Roman", serif;
   --font-body:    "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
   /* ── Spacing (8px rhythm) ───────────────────────────────── */
@@ -189,7 +191,7 @@ a:hover { text-decoration-thickness: 2px; }
 .script-line {
   font-family: var(--font-display);
   font-style: italic;
-  font-weight: 300;
+  font-weight: 400;          /* EB Garamond starts at 400 */
   font-size: clamp(1.375rem, 1rem + 1.4vw, 1.875rem);
   color: var(--sage-700);
   margin-bottom: var(--space-1);
@@ -685,6 +687,30 @@ a:hover { text-decoration-thickness: 2px; }
 
 /* ── Map ── */
 
+/* Placeholder shown until the visitor consents to loading Google's
+   iframe. Same footprint as the map so nothing shifts when swapped. */
+.map__consent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  height: clamp(300px, 42vw, 520px);
+  padding: var(--space-4) var(--space-3);
+  text-align: center;
+  background: var(--sage-050);
+  border: 1px solid var(--ink-muted);
+  border-radius: var(--radius-lg);
+}
+.map__consent svg { color: var(--sage-700); }
+.map__consent-text {
+  max-width: 46ch;
+  margin: 0;
+  font-size: .9375rem;
+  color: var(--ink-muted);
+}
+.map__consent-alt { margin: 0; font-size: .875rem; }
+
 .map iframe {
   width: 100%;
   height: clamp(300px, 42vw, 520px);
@@ -692,6 +718,37 @@ a:hover { text-decoration-thickness: 2px; }
   border-radius: var(--radius-lg);
   display: block;
 }
+
+/* ═══════════ LEGAL PAGES ═══════════ */
+
+.legal__body { max-width: 68ch; }
+.legal__body h2 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  margin-top: var(--space-5);
+  padding-bottom: var(--space-1);
+  border-bottom: 1px solid var(--sage-200);
+}
+.legal__body p { color: var(--ink-muted); }
+.legal__updated { font-size: .875rem; }
+
+.legal__list {
+  list-style: disc;
+  padding-left: 1.5rem;
+  margin: 0 0 var(--space-2);
+  color: var(--ink-muted);
+}
+.legal__list li { margin-bottom: var(--space-1); }
+
+/* Owner-facing reminder — delete the markup before publishing. */
+.legal__notice {
+  padding: var(--space-3);
+  margin-bottom: var(--space-4);
+  background: #FFF6D9;
+  border: 2px solid #8A6D1F;
+  border-radius: var(--radius-lg);
+}
+.legal__notice p { color: #4A3B10; margin: 0; font-size: .9375rem; }
 
 /* ═══════════ FOOTER ═══════════ */
 

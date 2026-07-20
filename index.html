@@ -16,9 +16,12 @@
 <meta property="og:image:height" content="600">
 
 <link rel="icon" href="assets/img/logo-glow-green.jpg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Inter:wght@300;400;500;600&display=swap">
+
+<!-- Fonts are self-hosted (assets/fonts/). Nothing is requested from
+     Google, so no visitor IP address leaves this domain. -->
+<link rel="preload" href="assets/fonts/eb-garamond-400-greek.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/inter-400-greek.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/fonts.css">
 <link rel="stylesheet" href="assets/css/style.css">
 
 <script type="application/ld+json">
@@ -429,14 +432,34 @@
           </ul>
         </div>
 
-        <!-- ─── Map ─── -->
+        <!-- ─── Map ───────────────────────────────────────────────
+             GDPR: the Google Maps embed sets Google cookies and sends
+             the visitor's IP to Google. It is therefore NOT loaded
+             automatically. The iframe is only created after the
+             visitor explicitly clicks to load it (see main.js).
+             Until then nothing is requested from Google.
+             ──────────────────────────────────────────────────────── -->
         <div class="map">
           <h3 class="contact__subhead">Πού θα μας βρείτε</h3>
-          <!-- TODO: Αντικαταστήστε το `q=` με την πραγματική διεύθυνση του ινστιτούτου. -->
-          <iframe
-            title="Χάρτης με τη θέση του glow — Beauty, Nails &amp; More στη Θεσσαλονίκη"
-            src="https://www.google.com/maps?q=Thessaloniki%2C%20Greece&output=embed"
-            loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+          <div class="map__consent" id="mapConsent">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="32" height="32">
+              <path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/>
+              <circle cx="12" cy="10" r="2.6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+            <p class="map__consent-text">
+              Ο χάρτης παρέχεται από την Google. Αν τον φορτώσετε, η Google ενδέχεται
+              να λάβει τη διεύθυνση IP σας και να αποθηκεύσει cookies στη συσκευή σας.
+            </p>
+            <button type="button" class="btn btn--primary" id="mapLoad">
+              Φόρτωση χάρτη
+            </button>
+            <p class="map__consent-alt">
+              <!-- TODO: Αντικαταστήστε τη διεύθυνση στο τέλος του συνδέσμου. -->
+              ή <a href="https://www.google.com/maps/search/?api=1&amp;query=Thessaloniki%2C%20Greece"
+                   target="_blank" rel="noopener noreferrer">ανοίξτε τον χάρτη σε νέα καρτέλα<span class="visually-hidden"> (ανοίγει σε νέα καρτέλα στον ιστότοπο της Google)</span></a>
+            </p>
+          </div>
         </div>
 
       </div>
@@ -463,6 +486,7 @@
         <li><a href="#services">Υπηρεσίες</a></li>
         <li><a href="#gallery">Ο χώρος μας</a></li>
         <li><a href="#contact">Επικοινωνία</a></li>
+        <li><a href="privacy.html">Πολιτική Απορρήτου</a></li>
       </ul>
     </nav>
 
