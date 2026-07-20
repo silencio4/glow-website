@@ -998,6 +998,38 @@ html.a11y-bigcursor * {
   cursor: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='48'%20height='48'%20viewBox='0%200%2048%2048'%3E%3Cpath%20d='M6%203L6%2039L16%2030L22%2044L28%2041L22%2027L35%2027Z'%20fill='%23000'%20stroke='%23fff'%20stroke-width='2.5'%20stroke-linejoin='round'/%3E%3C/svg%3E") 6 3, auto;
 }
 
+/* Text spacing — uses the exact values the WCAG 1.4.12 test applies,
+   which the layout is already verified to survive without clipping. */
+html.a11y-spacing body {
+  line-height: 2 !important;
+  letter-spacing: .12em !important;
+  word-spacing: .16em !important;
+}
+html.a11y-spacing p { margin-bottom: 2em !important; }
+
+/* Pause animations — a manual equivalent of prefers-reduced-motion for
+   visitors who need it but have not set the OS preference. */
+html.a11y-nomotion *,
+html.a11y-nomotion *::before,
+html.a11y-nomotion *::after {
+  animation-duration: .01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: .01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Reading guide — a horizontal line that follows the pointer to help
+   keep one's place. Decorative and click-through. JS sets its `top`. */
+.a11y-guide {
+  position: fixed;
+  left: 0; right: 0; top: 0;
+  height: 0;
+  border-top: 3px solid #1c1e1a;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, .85);
+  pointer-events: none;
+  z-index: 190;
+}
+
 /* ═══════════════════════════════════════════════════════════
    REDUCED MOTION — WCAG 2.3.3
    Strip every non-essential animation and transition.

@@ -195,9 +195,41 @@
     var fsLevel = document.getElementById('fsLevel');
     var STORE = 'glow_a11y';
     var FS_NAMES = ['Κανονικό', 'Μεγάλο', 'Μεγαλύτερο', 'Μέγιστο'];
-    var TOGGLES = ['contrast', 'links', 'readable', 'grayscale', 'bigcursor'];
+    var TOGGLES = ['contrast', 'links', 'readable', 'grayscale', 'bigcursor', 'spacing', 'guide', 'nomotion'];
 
-    var state = { fs: 0, contrast: false, links: false, readable: false, grayscale: false, bigcursor: false };
+    function defaults() {
+      var d = { fs: 0 };
+      TOGGLES.forEach(function (t) { d[t] = false; });
+      return d;
+    }
+    var state = defaults();
+
+    // Reading guide: a line element that tracks the pointer, wired only
+    // while the option is on. rAF batches the position writes.
+    var guideEl = null, guideRAF = null, guideY = 0;
+    function onGuideMove(e) {
+      guideY = e.clientY;
+      if (!guideRAF) {
+        guideRAF = requestAnimationFrame(function () {
+          guideRAF = null;
+          if (guideEl) guideEl.style.top = guideY + 'px';
+        });
+      }
+    }
+    function setGuide(on) {
+      if (on) {
+        if (!guideEl) {
+          guideEl = document.createElement('div');
+          guideEl.className = 'a11y-guide';
+          guideEl.setAttribute('aria-hidden', 'true');
+          document.body.appendChild(guideEl);
+        }
+        document.addEventListener('mousemove', onGuideMove);
+      } else {
+        document.removeEventListener('mousemove', onGuideMove);
+        if (guideEl) { guideEl.remove(); guideEl = null; }
+      }
+    }
 
     // JS is running, so it is safe to show the control.
     a11y.hidden = false;
@@ -225,6 +257,8 @@
         var btn = a11y.querySelector('[data-a11y="' + name + '"]');
         if (btn) btn.setAttribute('aria-pressed', String(state[name]));
       });
+
+      setGuide(state.guide);
 
       fsLevel.textContent = FS_NAMES[state.fs];
       fsMinus.setAttribute('aria-disabled', String(state.fs === 0));
@@ -274,7 +308,7 @@
     });
 
     a11yReset.addEventListener('click', function () {
-      state = { fs: 0, contrast: false, links: false, readable: false, grayscale: false, bigcursor: false };
+      state = defaults();
       apply();
       try { localStorage.removeItem(STORE); } catch (e) { /* ignore */ }
       a11yReset.focus();
