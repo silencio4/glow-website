@@ -7,13 +7,22 @@
 <meta name="description" content="Το glow — Beauty, Nails &amp; More είναι ένας χώρος περιποίησης στη Θεσσαλονίκη. Αποτρίχωση με laser Alexandrite, περιποίηση νυχιών, θεραπείες προσώπου και σώματος.">
 <meta name="theme-color" content="#445739">
 
+<!-- Both www and apex resolve, so this tells search engines which one
+     is the real address and stops them treating it as duplicate. -->
+<link rel="canonical" href="https://www.glowbeautynails.gr/">
+
+<!-- Social previews need absolute URLs — a relative path will not
+     resolve when Facebook/Instagram fetch the page. -->
 <meta property="og:type" content="website">
 <meta property="og:locale" content="el_GR">
+<meta property="og:site_name" content="glow — Beauty, Nails &amp; More">
+<meta property="og:url" content="https://www.glowbeautynails.gr/">
 <meta property="og:title" content="glow — Beauty, Nails &amp; More | Θεσσαλονίκη">
 <meta property="og:description" content="Ένας χώρος ζεστασιάς και ηρεμίας στη Θεσσαλονίκη. Laser, νύχια, πρόσωπο, σώμα.">
-<meta property="og:image" content="assets/img/logo-glow-green.jpg">
+<meta property="og:image" content="https://www.glowbeautynails.gr/assets/img/logo-glow-green.jpg">
 <meta property="og:image:width" content="600">
 <meta property="og:image:height" content="600">
+<meta name="twitter:card" content="summary_large_image">
 
 <link rel="icon" href="assets/img/logo-glow-green.jpg">
 
@@ -29,7 +38,8 @@
   "@context": "https://schema.org",
   "@type": "BeautySalon",
   "name": "glow — Beauty, Nails & More",
-  "image": "assets/img/logo-glow-green.jpg",
+  "url": "https://www.glowbeautynails.gr/",
+  "image": "https://www.glowbeautynails.gr/assets/img/logo-glow-green.jpg",
   "telephone": "+302314020845",
   "address": {
     "@type": "PostalAddress",

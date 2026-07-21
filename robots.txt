@@ -1,10 +1,12 @@
 # glow — Beauty, Nails & More
 # Allow every crawler to index the whole site.
+#
+# Note: Cloudflare prepends its own "managed" block above this one,
+# which disallows AI-training crawlers (GPTBot, CCBot, ClaudeBot,
+# Google-Extended, …). That does not affect Google Search indexing —
+# Googlebot is covered by the "User-agent: *  Allow: /" rule.
 
 User-agent: *
 Allow: /
 
-# TODO: replace YOURDOMAIN.gr with the real Papaki domain once it is
-# live on Cloudflare Pages. Crawlers only read this file at a domain
-# root, so it has no effect on the github.io project URL.
-Sitemap: https://YOURDOMAIN.gr/sitemap.xml
+Sitemap: https://www.glowbeautynails.gr/sitemap.xml

@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  TODO: replace YOURDOMAIN.gr throughout with the real Papaki domain
-  once it is live on Cloudflare Pages, and update <lastmod> whenever
-  the page content changes meaningfully.
-
-  The site is a single page, so there is one entry. If a privacy
-  policy or extra pages are added later, add a <url> block for each.
+  Single-page site, so there is one entry. If more pages are added
+  later, add a <url> block for each and update <lastmod>.
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://YOURDOMAIN.gr/</loc>
-    <lastmod>2026-07-20</lastmod>
+    <loc>https://www.glowbeautynails.gr/</loc>
+    <lastmod>2026-07-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
