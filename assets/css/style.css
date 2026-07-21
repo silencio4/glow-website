@@ -512,56 +512,86 @@ a:hover { text-decoration-thickness: 2px; }
 
 /* ═══════════ SERVICES ═══════════ */
 
-/* A centred single column reading like a treatment menu. Each category
-   is a group of native <details> accordions. */
-.treatments-wrap {
-  max-width: 780px;
+/* Category cards, as before — but each now holds expandable treatments
+   instead of a plain list. Tops align; cards keep their natural height. */
+.service-grid {
+  display: grid;
+  gap: var(--space-3);
+  max-width: 1120px;
   margin-inline: auto;
 }
+/* Two columns rather than three: the expanded descriptions need a
+   readable line length, and three narrow columns squeezed the Greek
+   text to ~35 characters a line. The short third category spans the
+   full width, which keeps the block balanced instead of leaving a gap. */
+@media (min-width: 900px) {
+  .service-grid {
+    grid-template-columns: repeat(2, 1fr);
+    align-items: start;
+  }
+  .service-card:last-child { grid-column: 1 / -1; }
+}
 
-.service-cat { margin-bottom: var(--space-5); }
-.service-cat:last-child { margin-bottom: 0; }
+.service-card {
+  padding: var(--space-3) min(var(--space-4), 32px);
+  background: var(--white);
+  border: 1px solid var(--sage-200);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-1);
+}
 
-.service-cat__title {
+.service-card__title {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  font-size: 1.625rem;
   font-weight: 500;
-  margin-bottom: var(--space-2);
-  padding-bottom: var(--space-1);
+  margin-bottom: var(--space-1);
+  padding-bottom: var(--space-2);
   border-bottom: 2px solid var(--sage-500);
 }
 
-/* Native disclosure — keyboard-operable and screen-reader friendly by
-   default, works with no JS. */
-.treatment {
-  background: var(--white);
-  border: 1px solid var(--sage-200);
-  border-radius: var(--radius);
-  margin-bottom: var(--space-1);
-}
+/* Native <details> — keyboard-operable and screen-reader friendly by
+   default, works with no JS. Styled as rows inside the card, keeping
+   the leaf-dot marker from the previous list design. */
+.treatment { border-bottom: 1px solid var(--sage-200); }
+.treatment:last-child { border-bottom: 0; }
 
 .treatment summary {
+  position: relative;
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  min-height: 56px;                  /* comfortable touch target */
-  padding: var(--space-1) var(--space-3);
-  font-weight: 500;
+  min-height: 48px;                  /* touch target */
+  padding: var(--space-1) 0 var(--space-1) 1.25rem;
   color: var(--ink);
   cursor: pointer;
   list-style: none;                  /* remove the default triangle… */
 }
 .treatment summary::-webkit-details-marker { display: none; }  /* …incl. Safari */
 
-.treatment__name { flex: 1; min-width: 0; }
+/* Decorative leaf-dot, matching the old service list. */
+.treatment summary::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1.35em;
+  width: 6px; height: 6px;
+  border-radius: 50% 0 50% 50%;
+  background: var(--sage-700);
+}
+
+.treatment__name {
+  flex: 1;
+  min-width: 0;
+  font-size: .9375rem;
+  font-weight: 500;
+}
 .treatment__sub {
-  display: inline-block;
-  font-size: .75rem;
+  display: block;
+  font-size: .6875rem;
   font-weight: 600;
   letter-spacing: .06em;
   text-transform: uppercase;
   color: var(--sage-700);
-  margin-left: .35em;
 }
 
 .treatment__chev {
@@ -571,15 +601,12 @@ a:hover { text-decoration-thickness: 2px; }
 }
 .treatment[open] .treatment__chev { transform: rotate(180deg); }
 
-.treatment summary:hover { background: var(--sage-050); }
-.treatment[open] summary { border-bottom: 1px solid var(--sage-200); }
+.treatment summary:hover .treatment__name { color: var(--sage-700); }
 
-.treatment__body {
-  padding: var(--space-2) var(--space-3) var(--space-3);
-}
+.treatment__body { padding: 0 0 var(--space-2) 1.25rem; }
 .treatment__body p {
   margin: 0;
-  font-size: .9375rem;
+  font-size: .875rem;
   color: var(--ink-muted);
 }
 
@@ -997,9 +1024,10 @@ html.a11y-contrast {
   --sage-050:  #ffffff;
   --cream:     #ffffff;
 }
-html.a11y-contrast .treatment,
+html.a11y-contrast .service-card,
 html.a11y-contrast .pillars li { border-color: #000; }
-html.a11y-contrast .service-cat__title { border-bottom-color: #000; }
+html.a11y-contrast .service-card__title,
+html.a11y-contrast .treatment { border-bottom-color: #000; }
 
 /* The footer's secondary text uses --sage-200, which contrast mode
    repurposes as a darker border colour. On the near-black footer that
@@ -1091,9 +1119,10 @@ html.a11y-nomotion *::after {
    ═══════════════════════════════════════════════════════════ */
 
 @media (forced-colors: active) {
-  .btn, .treatment, .pillars li, .gallery-item {
+  .btn, .service-card, .pillars li, .gallery-item {
     border: 1px solid CanvasText;
   }
+  .treatment summary::before { background: CanvasText; }
   :focus-visible { outline: 3px solid Highlight; }
 }
 
