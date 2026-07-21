@@ -54,6 +54,13 @@
 <body>
 <a class="skip-link" href="#main">Μετάβαση στο κύριο περιεχόμενο</a>
 
+<!-- ══════════ STICKY TOP BAR ══════════
+     The ΕΣΠΑ banner and the header stick to the top together as one
+     block, so the banner stays visible the whole way down the page.
+     They share a wrapper because two separately-sticky elements would
+     both pin to top:0 and overlap. -->
+<div class="topbar" id="topbar">
+
 <!-- ══════════ ΕΣΠΑ BANNER ══════════
      Placed above the header so it is the first thing a visitor sees,
      as required by the ΕΣΠΑ publicity guidance. Clicking it opens the
@@ -193,6 +200,8 @@
 
   </div>
 </header>
+
+</div><!-- /.topbar -->
 
 <main id="main">
 

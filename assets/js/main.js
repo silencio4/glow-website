@@ -61,6 +61,30 @@
      so screen-reader users get the same orientation cue.
      ───────────────────────────────────────────────────────── */
 
+  /* The sticky block (ΕΣΠΑ banner + header) changes height with the
+     viewport, because the banner scales. Publish its real height as
+     --topbar-h so anchor scrolling and the mobile panel line up. */
+  var topbar = document.getElementById('topbar');
+
+  if (topbar) {
+    var setTopbarHeight = function () {
+      document.documentElement.style.setProperty(
+        '--topbar-h', Math.round(topbar.getBoundingClientRect().height) + 'px'
+      );
+    };
+    setTopbarHeight();
+
+    // Belt and braces: a ResizeObserver catches the banner image
+    // loading and font swaps, while the window events cover viewport
+    // and orientation changes. Both just re-set the same value.
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(setTopbarHeight).observe(topbar);
+    }
+    window.addEventListener('resize', setTopbarHeight);
+    window.addEventListener('orientationchange', setTopbarHeight);
+    window.addEventListener('load', setTopbarHeight);
+  }
+
   var header = document.getElementById('siteHeader');
   var navLinks = primaryNav ? Array.prototype.slice.call(primaryNav.querySelectorAll('a')) : [];
   var sections = navLinks

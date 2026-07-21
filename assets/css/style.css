@@ -59,7 +59,9 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--header-h) + var(--space-2));
+  /* --topbar-h is measured in main.js (banner + header), since the
+     banner's height scales with the viewport. Fallback covers no-JS. */
+  scroll-padding-top: calc(var(--topbar-h, 190px) + var(--space-2));
   -webkit-text-size-adjust: 100%;
 }
 
@@ -251,10 +253,17 @@ a:hover { text-decoration-thickness: 2px; }
 
 /* ═══════════ HEADER ═══════════ */
 
-.site-header {
+/* The ΕΣΠΑ banner + header stick together — see .topbar. The header
+   itself stays `relative` (not sticky) so the mobile nav dropdown,
+   which is absolutely positioned, still anchors to it. */
+.topbar {
   position: sticky;
   top: 0;
   z-index: 100;
+}
+
+.site-header {
+  position: relative;
   background: var(--cream);
   border-bottom: 1px solid var(--sage-200);
   transition: box-shadow var(--dur) var(--ease-out);
@@ -394,12 +403,16 @@ a:hover { text-decoration-thickness: 2px; }
      is defined later in the file. */
   .a11y > .a11y__panel {
     position: fixed;
-    top: var(--header-h);
+    top: var(--topbar-h, 150px);
     right: var(--space-2);
     left: auto;
     width: min(92vw, 340px);
-    max-height: calc(100dvh - var(--header-h) - var(--space-3));
+    max-height: calc(100dvh - var(--topbar-h, 150px) - var(--space-3));
   }
+
+  /* Trim the banner strip on phones — the sticky block already takes a
+     fair slice of a small viewport. */
+  .espa-bar { padding-block: var(--space-1); }
 
   .primary-nav {
     position: absolute;
