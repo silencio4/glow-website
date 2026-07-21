@@ -96,6 +96,40 @@
      (see the contact section markup), so it needs no script. */
 
   /* ─────────────────────────────────────────────────────────
+     ΕΣΠΑ funding statement
+
+     Both banners (top bar and footer) open the same dialog.
+     <dialog showModal()> gives the focus trap, Escape-to-close and
+     correct role for free; focus returns to whichever banner was used.
+     ───────────────────────────────────────────────────────── */
+
+  var espaModal = document.getElementById('espaModal');
+
+  if (espaModal && typeof espaModal.showModal === 'function') {
+    var espaClose = document.getElementById('espaClose');
+    var espaTrigger = null;
+
+    document.querySelectorAll('[data-espa-open]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        espaTrigger = btn;
+        espaModal.showModal();
+        espaClose.focus();
+      });
+    });
+
+    espaClose.addEventListener('click', function () { espaModal.close(); });
+
+    // Clicking the backdrop closes it too.
+    espaModal.addEventListener('click', function (e) {
+      if (e.target === espaModal) espaModal.close();
+    });
+
+    espaModal.addEventListener('close', function () {
+      if (espaTrigger) { espaTrigger.focus(); espaTrigger = null; }
+    });
+  }
+
+  /* ─────────────────────────────────────────────────────────
      Gallery lightbox
 
      Built on <dialog showModal()>, which gives us the focus trap,

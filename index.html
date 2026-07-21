@@ -54,6 +54,24 @@
 <body>
 <a class="skip-link" href="#main">Μετάβαση στο κύριο περιεχόμενο</a>
 
+<!-- ══════════ ΕΣΠΑ BANNER ══════════
+     Placed above the header so it is the first thing a visitor sees,
+     as required by the ΕΣΠΑ publicity guidance. Clicking it opens the
+     funding statement. Loaded eagerly — it is above the fold. -->
+<div class="espa-bar">
+  <div class="wrap">
+    <button type="button" class="espa-bar__btn" data-espa-open aria-haspopup="dialog">
+      <picture>
+        <source srcset="assets/img/espa-banner-gr.webp" type="image/webp">
+        <img src="assets/img/espa-banner-gr.jpg"
+             alt="Με τη συγχρηματοδότηση της Ευρωπαϊκής Ένωσης. ΕΣΠΑ 2021–2027, Πρόγραμμα Ανταγωνιστικότητα."
+             width="1400" height="165" decoding="async">
+      </picture>
+      <span class="visually-hidden">— Δείτε πληροφορίες για τη χρηματοδότηση</span>
+    </button>
+  </div>
+</div>
+
 <!-- ══════════ HEADER ══════════ -->
 <header class="site-header" id="siteHeader">
   <div class="wrap header-inner">
@@ -556,12 +574,30 @@
 
   <div class="espa">
     <div class="wrap">
-      <a href="https://www.espa.gr/" target="_blank" rel="noopener noreferrer">
+      <button type="button" class="espa-bar__btn" data-espa-open aria-haspopup="dialog">
         <picture><source srcset="assets/img/espa-banner-gr.webp" type="image/webp"><img src="assets/img/espa-banner-gr.jpg"
              alt="Με τη συγχρηματοδότηση της Ευρωπαϊκής Ένωσης. ΕΣΠΑ 2021–2027, Πρόγραμμα Ανταγωνιστικότητα."
              width="1400" height="165" loading="lazy" decoding="async"></picture>
-        <span class="visually-hidden">Μετάβαση στον ιστότοπο του ΕΣΠΑ (ανοίγει σε νέα καρτέλα)</span>
-      </a>
+        <span class="visually-hidden">— Δείτε πληροφορίες για τη χρηματοδότηση</span>
+      </button>
+
+      <!-- Without JavaScript the dialog cannot open, so the statement
+           is shown inline instead. -->
+      <noscript>
+        <div class="espa-noscript">
+          <p>
+            Η επιχείρηση χρηματοδοτήθηκε από τη Δράση «Ενίσχυση της Ίδρυσης και
+            Λειτουργίας Νέων Μικρομεσαίων Επιχειρήσεων» του Προγράμματος
+            Ανταγωνιστικότητα (ΕΣΠΑ 2021-2027).
+          </p>
+          <p>
+            Η Δράση στοχεύει στην ενίσχυση των επενδυτικών σχεδίων υπό ίδρυση και
+            νεοσύστατων επιχειρήσεων ΜμΕ, οι οποίες θα επενδύσουν ίδιους πόρους στη
+            δραστηριότητα που προτίθενται να ασκήσουν και θα δημιουργήσουν νέες
+            θέσεις απασχόλησης.
+          </p>
+        </div>
+      </noscript>
     </div>
   </div>
 
@@ -571,6 +607,40 @@
     </div>
   </div>
 </footer>
+
+<!-- ══════════ ΕΣΠΑ FUNDING STATEMENT ══════════ -->
+<dialog class="espa-modal" id="espaModal" aria-labelledby="espaModalTitle">
+  <div class="espa-modal__head">
+    <h2 id="espaModalTitle">Χρηματοδότηση ΕΣΠΑ</h2>
+    <button type="button" class="espa-modal__close" id="espaClose">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="24" height="24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="m6 6 12 12M18 6 6 18"/></svg>
+      <span class="visually-hidden">Κλείσιμο</span>
+    </button>
+  </div>
+
+  <picture>
+    <source srcset="assets/img/espa-banner-gr.webp" type="image/webp">
+    <img class="espa-modal__banner" src="assets/img/espa-banner-gr.jpg"
+         alt="Με τη συγχρηματοδότηση της Ευρωπαϊκής Ένωσης. ΕΣΠΑ 2021–2027, Πρόγραμμα Ανταγωνιστικότητα."
+         width="1400" height="165" loading="lazy" decoding="async">
+  </picture>
+
+  <p>
+    Η επιχείρηση χρηματοδοτήθηκε από τη Δράση «Ενίσχυση της Ίδρυσης και Λειτουργίας
+    Νέων Μικρομεσαίων Επιχειρήσεων» του Προγράμματος Ανταγωνιστικότητα
+    (ΕΣΠΑ 2021-2027).
+  </p>
+  <p>
+    Η Δράση στοχεύει στην ενίσχυση των επενδυτικών σχεδίων υπό ίδρυση και
+    νεοσύστατων επιχειρήσεων ΜμΕ, οι οποίες θα επενδύσουν ίδιους πόρους στη
+    δραστηριότητα που προτίθενται να ασκήσουν και θα δημιουργήσουν νέες θέσεις
+    απασχόλησης.
+  </p>
+
+  <p class="espa-modal__link">
+    <a href="https://www.espa.gr/" target="_blank" rel="noopener noreferrer">espa.gr<span class="visually-hidden"> (ανοίγει σε νέα καρτέλα)</span></a>
+  </p>
+</dialog>
 
 <!-- ══════════ LIGHTBOX ══════════ -->
 <dialog class="lightbox" id="lightbox" aria-labelledby="lightboxCaption">

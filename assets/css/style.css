@@ -834,8 +834,85 @@ a:hover { text-decoration-thickness: 2px; }
 /* ── ΕΣΠΑ ── */
 
 .espa { background: var(--white); padding-block: var(--space-3); }
-.espa a { display: block; max-width: 900px; margin-inline: auto; }
-.espa img { width: 100%; height: auto; }
+
+/* ΕΣΠΑ banner — top bar and footer share this button style. The banner
+   is a plain white strip so the official artwork keeps its own colours. */
+.espa-bar {
+  background: var(--white);
+  border-bottom: 1px solid var(--sage-200);
+  padding-block: var(--space-2);
+}
+.espa-bar__btn {
+  display: block;
+  width: 100%;
+  max-width: 900px;
+  margin-inline: auto;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+.espa-bar__btn img { width: 100%; height: auto; }
+.espa-bar__btn:focus-visible { outline-offset: 4px; }
+.espa .espa-bar__btn { max-width: 900px; }
+
+/* ── ΕΣΠΑ funding statement dialog ── */
+.espa-modal {
+  width: min(94vw, 640px);
+  max-height: 90dvh;
+  overflow-y: auto;
+  padding: var(--space-4);
+  background: var(--white);
+  color: var(--ink);
+  border: 1px solid var(--ink-muted);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-2);
+}
+.espa-modal::backdrop { background: rgba(28, 30, 26, .7); }
+
+.espa-modal__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+.espa-modal__head h2 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0;
+}
+.espa-modal__close {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 44px; height: 44px;
+  margin: -6px -6px 0 0;
+  background: none;
+  border: 0;
+  border-radius: var(--radius);
+  color: var(--ink);
+  cursor: pointer;
+}
+.espa-modal__close:hover { background: var(--sage-050); }
+
+.espa-modal__banner {
+  width: 100%;
+  height: auto;
+  margin-bottom: var(--space-3);
+}
+.espa-modal p { color: var(--ink-muted); }
+.espa-modal__link { margin-bottom: 0; }
+
+.espa-noscript {
+  max-width: 900px;
+  margin: var(--space-2) auto 0;
+  font-size: .875rem;
+  color: var(--ink-muted);
+}
+.espa-noscript p:last-child { margin-bottom: 0; }
 
 .colophon {
   background: var(--sage-900);
